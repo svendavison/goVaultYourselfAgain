@@ -2,17 +2,6 @@
 
 - hosts: all
   become: yes
-
-  tasks:
-  - name: clone a repo
-    git:
-      # repo: git@github.com:svendavison/goVaultYourselfAgain.git
-      repo: https://svendavison:{{ github_password }}@github.com/svendavison/goVaultYourselfAgain.git
-      dest: /opt/goVaultYourselfAgain
-    tags:
-    - clonerepo
-    
-
   vars_files:
     - enc-data.yml
   roles:
