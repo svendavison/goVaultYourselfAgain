@@ -3,6 +3,9 @@
 - hosts: all
   become: yes
 
+  ##################
+  # clone git repo #
+  #################
   tasks:
   - name: clone -> goVaultYourselfAgain
     git:
@@ -11,7 +14,21 @@
       dest: /opt/goVaultYourselfAgain
     tags:
     - clonerepo
-    
+
+  ###########################
+  # Copy dir to remote host #
+  ###########################
+  - name: Copy local ./sampledir/ to /opt/zomg on target
+    copy:
+      src: ./sampledir/
+      dest: /opt/zomg
+    tags:
+    - copyzomg
+
+  
+  #################################
+  # user creation stuff via roles #  
+  #################################
 
   vars_files:
     - enc-data.yml
