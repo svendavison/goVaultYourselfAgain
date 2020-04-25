@@ -1,0 +1,10 @@
+[ocean_masters]
+master ansible_host=159.89.86.46 ansible_user=root
+
+[ocean_clients]
+client1 ansible_host=206.189.181.255 ansible_user=root
+client2 ansible_host=159.89.88.104 ansible_user=root
+
+[ocean_all:children]
+ocean_masters
+ocean_clients

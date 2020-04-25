@@ -1,0 +1,57 @@
+---
+
+- hosts: all
+  become: yes
+  roles:
+    - weareinteractive.users
+  vars:
+    # users_groups:
+    #   - www-data
+    #   - unicorns
+    #   - cuckolds
+
+    users:
+      - username: sdavison
+        name: Sven Davison
+        home_create: yes
+        groups:
+          - users
+          - wheel
+        append: yes
+        home_mode: "0750"
+        authorized_keys:
+          - "{{ lookup('file', 'tests/id_rsa.pub') }}"
+          - "{{ lookup('file', 'tests/ansible-2020_rsa.pub') }}"
+        ssh_keys:
+          id_rsa: "{{ lookup('file', 'tests/ansible-2020_rsa') }}"
+          id_rsa_common: "{{ lookup('file', 'tests/id_rsa') }}"
+          laptop_rsa: "{{ lookup('file', 'tests/laptop_rsa') }}"
+        # ssh_key_generate: yes
+        # ssh_key_password: secret
+      - username: benspelledabc
+        home_create: yes
+        groups:
+          - users
+        append: yes
+        home_mode: "0750"
+        authorized_keys:
+          - "{{ lookup('file', 'tests/ansible-2020_rsa.pub') }}"
+        ssh_keys:
+          id_rsa: "{{ lookup('file', 'tests/ansible-2020_rsa') }}"
+
+    users_group: staff
+    users_groups:
+      - www-data
+      - unicorns
+    users_authorized_keys_exclusive: yes
+    users_remove:
+      # - { username: foobar, remove: yes }
+      # - { username: foobar_key, remove: yes }
+      # - { username: foobar_keys, remove: yes }
+      # - { username: foobar_authorized_keys, remove: yes }
+      # - { username: foobar_file, remove: yes }
+      # - { username: foobar_groups, remove: yes }
+      # - { username: foobar_groups_reset, remove: yes }
+      # - { username: foobar_home_mode, remove: yes }
+      # - { username: foobar_key_generate, remove: yes }
+      # - { username: foobar_system, remove: yes }
