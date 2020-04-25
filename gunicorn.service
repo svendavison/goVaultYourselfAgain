@@ -1,0 +1,23 @@
+[Unit]
+Description=gunicorn service
+After=network.target
+
+[Service]
+User=django
+Group=datausr
+
+WorkingDirectory=/data/django/IMRUnicorn-Django/imrunicorn/
+
+# works but bad logging
+# ExecStart=/data/django/IMRUnicorn-Django/venv/bin/gunicorn  --access-logfile /data/django/gunicornaccess.log --workers 3 --bind unix:/data/django/IMRUnicorn-Django/imrunicorn/imrunicorn.sock imrunicorn.wsgi:application
+
+
+#ExecStart=/data/django/IMRUnicorn-Django/venv/bin/gunicorn  --access-logformat '{"remote_host":"%({X-Forwarded-For}i)s","username":"%(u)s","request_date_time":"%(t)s","status_line":"%(r)s","status":"%(s)s","response_len":"%(b)s","referer":"%(f)s","user_agent":"%(a)s"}'  --access-logfile /data/django/gunicornaccess.log --workers 3 --bind unix:/data/django/IMRUnicorn-Django/imrunicorn/imrunicorn.sock imrunicorn.wsgi:application
+
+ExecStart=/data/django/IMRUnicorn-Django/venv/bin/gunicorn  --access-logformat '{"remote_host":"%({X-Forwarded-For}i)s","username":"%(u)s","request_date_time":"%(t)s","status_line":"%(r)s","status":"%(s)s","response_len":"%(b)s","referer":"%(f)s","user_agent":"%(a)s"}'  --access-logfile /var/log/gunicorn/gunicornaccess.log --workers 3 --bind unix:/data/django/IMRUnicorn-Django/imrunicorn/imrunicorn.sock imrunicorn.wsgi:application
+
+
+
+
+[Install]
+WantedBy=multi-user.target
