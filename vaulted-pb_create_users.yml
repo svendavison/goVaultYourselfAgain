@@ -4,7 +4,7 @@
   become: yes
 
   tasks:
-  - name: clone a repo
+  - name: clone -> goVaultYourselfAgain
     git:
       # repo: git@github.com:svendavison/goVaultYourselfAgain.git
       repo: https://svendavison:{{ github_password }}@github.com/svendavison/goVaultYourselfAgain.git
